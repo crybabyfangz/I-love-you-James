@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Love</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #8B3A3A; /* soft brown-red */
+      overflow: hidden;
+      font-family: 'Press Start 2P', monospace;
+    }
+
+    /* Container for letter */
+    .letter-container {
+      position: relative;
+      width: 90%; /* almost full screen */
+      height: 90%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Love letter PNG */
+    #loveLetter {
+      width: 100%;
+      height: auto;
+      max-height: 100%;
+      animation: bounce 2s ease-in-out infinite;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+      border-radius: 15px;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    /* Heart sparkles */
+    .heart {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background: pink;
+      clip-path: polygon(50% 0%, 61% 15%, 75% 15%, 85% 25%, 85% 40%, 50% 100%, 15% 40%, 15% 25%, 25% 15%, 39% 15%);
+      opacity: 0.8;
+      animation: float 4s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 0.8; }
+      50% { transform: translateY(-180px) scale(1.2); opacity: 0.5; }
+      100% { transform: translateY(-360px) scale(1); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="letter-container">
+  <img id="loveLetter" src="love-letter.png" alt="Love Letter">
+</div>
+
+<script>
+  const container = document.querySelector('.letter-container');
+
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    
+    // Random horizontal position across container
+    heart.style.left = Math.random() * container.offsetWidth + 'px';
+
+    // Random animation delay
+    heart.style.animationDelay = Math.random() * 4 + 's';
+
+    container.appendChild(heart);
+
+    // Remove heart after animation
+    setTimeout(() => {
+      heart.remove();
+    }, 4000);
+  }
+
+  // Generate hearts periodically
+  setInterval(createHeart, 500); // every 0.5s
+</script>
+
+</body>
+</html>
