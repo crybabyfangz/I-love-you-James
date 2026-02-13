@@ -12,6 +12,7 @@
       align-items: center;
       background: #8B3A3A; /* soft brown-red */
       overflow: hidden;
+      touch-action: manipulation;
     }
 
     .letter-container {
@@ -34,6 +35,18 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-15px); }
     }
+
+    /* Optional tap hint text */
+    #tapHint {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-family: sans-serif;
+      color: #fff;
+      font-size: 16px;
+      opacity: 0.7;
+    }
   </style>
 </head>
 <body>
@@ -42,10 +55,26 @@
   <img id="loveLetter" src="love-letter.png" alt="Love Letter">
 </div>
 
-<audio id="song" autoplay loop>
+<div id="tapHint">Tap anywhere to play the song ❤️</div>
+
+<audio id="song" loop>
   <source src="ever-fallen-in-love.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
+
+<script>
+  const song = document.getElementById("song");
+  const body = document.body;
+  const hint = document.getElementById("tapHint");
+
+  // Play the song on first tap anywhere
+  body.addEventListener("click", () => {
+    if (song.paused) {
+      song.play();
+      hint.style.display = "none"; // hide hint after first tap
+    }
+  }, { once: true });
+</script>
 
 </body>
 </html>
